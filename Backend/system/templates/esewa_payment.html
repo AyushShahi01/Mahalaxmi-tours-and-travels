@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eSewa Payment</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .payment-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo img {
+            max-width: 150px;
+        }
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .amount {
+            text-align: center;
+            font-size: 32px;
+            color: #60a830;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .booking-details {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .booking-details h3 {
+            margin-top: 0;
+            color: #555;
+            font-size: 18px;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+        .detail-label {
+            color: #666;
+            font-weight: 500;
+        }
+        .detail-value {
+            color: #333;
+            font-weight: 600;
+        }
+        .pay-button {
+            background: #60a830;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+        .pay-button:hover {
+            background: #4d8a26;
+        }
+        .secure-notice {
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+        .secure-icon {
+            color: #60a830;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <div class="logo">
+            <svg width="150" height="40" viewBox="0 0 150 40">
+                <text x="0" y="30" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#60a830">eSewa</text>
+            </svg>
+        </div>
+        
+        <h2>Complete Your Payment</h2>
+        <div class="amount">NPR {{ payment_data.tAmt }}</div>
+        
+        <div class="booking-details">
+            <h3>Booking Details</h3>
+            <div class="detail-row">
+                <span class="detail-label">Package:</span>
+                <span class="detail-value">{{ package.title }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Booking ID:</span>
+                <span class="detail-value">{{ payment_data.pid }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Amount:</span>
+                <span class="detail-value">NPR {{ payment_data.amt }}</span>
+            </div>
+        </div>
+        
+        <form method="POST" action="{{ payment_url }}" id="esewaForm">
+            {% for key, value in payment_data.items %}
+                <input type="hidden" name="{{ key }}" value="{{ value }}">
+            {% endfor %}
+            
+            <button type="submit" class="pay-button">
+                Pay with eSewa
+            </button>
+        </form>
+        
+        <div class="secure-notice">
+            <span class="secure-icon">🔒</span>
+            Secure payment powered by eSewa
+        </div>
+    </div>
+    
+    <script>
+        // Auto-submit form after 2 seconds (optional)
+        // setTimeout(() => {
+        //     document.getElementById('esewaForm').submit();
+        // }, 2000);
+    </script>
+</body>
+</html>
