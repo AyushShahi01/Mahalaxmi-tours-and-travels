@@ -12,13 +12,14 @@ export default defineConfig(({ mode }) => ({
       '/api': {
         //http://127.0.0.1:8000
         //https://ayush2234.pythonanywhere.com
-        target: 'http://127.0.0.1:8000',
+        target: 'https://ayush2234.pythonanywhere.com',
         changeOrigin: true,
         secure: false,
       },
     },
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
+  base: "/Mahalaxmi-tours-and-travels/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
